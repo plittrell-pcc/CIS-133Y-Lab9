@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.46.2">
+  <project>
+    <settings />
+    <customwidgets />
+    <resources />
+  </project>
+  <object class="tk.Toplevel" id="main_window" named="True">
+    <property name="height">540</property>
+    <property name="minsize">720|420</property>
+    <property name="title" translatable="yes">US Census Name Popularity Browser</property>
+    <property name="width">840</property>
+    <layout manager="grid">
+      <property name="column">0</property>
+      <property name="row">0</property>
+      <property name="sticky">nsew</property>
+    </layout>
+    <containerlayout manager="grid">
+      <property type="col" id="0" name="weight">1</property>
+      <property type="row" id="2" name="weight">1</property>
+    </containerlayout>
+    <child>
+      <object class="ttk.Frame" id="header_frame" named="True">
+        <property name="padding">16 14 16 8</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">0</property>
+          <property name="sticky">ew</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="col" id="0" name="weight">1</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Label" id="title_label" named="True">
+            <property name="font">{Segoe UI} 14 bold</property>
+            <property name="text" translatable="yes">Welcome to the US Census Name Popularity Browser</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="welcome_desc_label" named="True">
+            <property name="padding">0 4 0 0</property>
+            <property name="text" translatable="yes">Explore historical US Census birth statistics (1915–2014). Enter a first name, choose a gender, and click Search to view yearly counts and share of total births.</property>
+            <property name="wraplength">790</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">1</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Labelframe" id="search_controls_frame" named="True">
+        <property name="padding">14 10 14 10</property>
+        <property name="text" translatable="yes">Search Filters</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="padx">16</property>
+          <property name="pady">6</property>
+          <property name="row">1</property>
+          <property name="sticky">ew</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="col" id="1" name="weight">1</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Label" id="name_prompt_label" named="True">
+            <property name="text" translatable="yes">First Name (e.g., Marc):</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">0 8</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="name_entry" named="True">
+            <property name="width">24</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="padx">0 16</property>
+              <property name="row">0</property>
+              <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="gender_prompt_label" named="True">
+            <property name="text" translatable="yes">Gender:</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">0 8</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="male_radio" named="True">
+            <property name="text" translatable="yes">Male (M)</property>
+            <property name="value">M</property>
+            <property name="variable">string:gender_var</property>
+            <layout manager="grid">
+              <property name="column">3</property>
+              <property name="padx">0 10</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Radiobutton" id="female_radio" named="True">
+            <property name="text" translatable="yes">Female (F)</property>
+            <property name="value">F</property>
+            <property name="variable">string:gender_var</property>
+            <layout manager="grid">
+              <property name="column">4</property>
+              <property name="padx">0 16</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="search_button" named="True">
+            <property name="command" type="command" cbtype="simple">on_search_clicked</property>
+            <property name="text" translatable="yes">Search</property>
+            <layout manager="grid">
+              <property name="column">5</property>
+              <property name="padx">0 8</property>
+              <property name="row">0</property>
+              <property name="sticky">e</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="clear_button" named="True">
+            <property name="command" type="command" cbtype="simple">on_clear_clicked</property>
+            <property name="text" translatable="yes">Clear</property>
+            <layout manager="grid">
+              <property name="column">6</property>
+              <property name="row">0</property>
+              <property name="sticky">e</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="results_frame" named="True">
+        <property name="padding">16 6 16 6</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">2</property>
+          <property name="sticky">nsew</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="col" id="0" name="weight">1</property>
+          <property type="row" id="0" name="weight">1</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Treeview" id="results_treeview" named="True">
+            <property name="selectmode">browse</property>
+            <property name="show">headings</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="sticky">nsew</property>
+            </layout>
+            <child>
+              <object class="ttk.Treeview.Column" id="col_name" named="True">
+                <property name="column_anchor">w</property>
+                <property name="heading_anchor">w</property>
+                <property name="minwidth">110</property>
+                <property name="stretch">true</property>
+                <property name="text" translatable="yes">Name</property>
+                <property name="tree_column">false</property>
+                <property name="visible">true</property>
+                <property name="width">145</property>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Treeview.Column" id="col_year" named="True">
+                <property name="column_anchor">center</property>
+                <property name="heading_anchor">center</property>
+                <property name="minwidth">75</property>
+                <property name="stretch">true</property>
+                <property name="text" translatable="yes">Year</property>
+                <property name="tree_column">false</property>
+                <property name="visible">true</property>
+                <property name="width">90</property>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Treeview.Column" id="col_gender" named="True">
+                <property name="column_anchor">center</property>
+                <property name="heading_anchor">center</property>
+                <property name="minwidth">75</property>
+                <property name="stretch">true</property>
+                <property name="text" translatable="yes">Gender</property>
+                <property name="tree_column">false</property>
+                <property name="visible">true</property>
+                <property name="width">85</property>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Treeview.Column" id="col_name_count" named="True">
+                <property name="column_anchor">e</property>
+                <property name="heading_anchor">e</property>
+                <property name="minwidth">105</property>
+                <property name="stretch">true</property>
+                <property name="text" translatable="yes">Name Count</property>
+                <property name="tree_column">false</property>
+                <property name="visible">true</property>
+                <property name="width">130</property>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Treeview.Column" id="col_total" named="True">
+                <property name="column_anchor">e</property>
+                <property name="heading_anchor">e</property>
+                <property name="minwidth">120</property>
+                <property name="stretch">true</property>
+                <property name="text" translatable="yes">Total Births</property>
+                <property name="tree_column">false</property>
+                <property name="visible">true</property>
+                <property name="width">150</property>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Treeview.Column" id="col_popularity" named="True">
+                <property name="column_anchor">e</property>
+                <property name="heading_anchor">e</property>
+                <property name="minwidth">110</property>
+                <property name="stretch">true</property>
+                <property name="text" translatable="yes">Popularity %</property>
+                <property name="tree_column">false</property>
+                <property name="visible">true</property>
+                <property name="width">125</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Scrollbar" id="results_scrollbar" named="True">
+            <property name="orient">vertical</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">0</property>
+              <property name="sticky">ns</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="status_frame" named="True">
+        <property name="padding">16 4 16 12</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">3</property>
+          <property name="sticky">ew</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="status_label" named="True">
+            <property name="text" translatable="yes">Ready. Enter a name and select M or F to begin.</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
